@@ -9,131 +9,306 @@
 <meta name="description" content="Meerkat reads 1,000+ sources around the clock and emails you when a security problem touches the packages and products you run, often hours or days before a CVE exists.">
 <link rel="canonical" href="https://meerkatsec.win/">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#f2efe6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12110e" media="(prefers-color-scheme: dark)">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Meerkat · Early warning system of vulnerabilities">
 <meta property="og:description" content="Know before the CVE.">
 <meta property="og:url" content="https://meerkatsec.win/">
 <style>
 :root {
-  --paper: #f2efe6; --paper-2: #e9e5d8; --ink: #17150f; --ink-2: #3b372d; --muted: #6c6658; --rule: #d2cbbb; --signal-ink: #b13f07;
+  --paper: #f2efe6; --paper-2: #e9e5d8; --ink: #17150f; --ink-2: #3b372d; --muted: #6c6658; --rule: #d2cbbb; --signal: #e4520e; --signal-ink: #b13f07; --blue: #2a4f9e; --red: #b8261b;
   --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
   --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, "Liberation Mono", monospace;
-  --gutter: clamp(16px, 3vw, 40px);
+  --gutter: clamp(16px, 2.4vw, 32px);
   color-scheme: light dark;
 }
 @media (prefers-color-scheme: dark) {
-  :root { --paper: #12110e; --paper-2: #1b1a15; --ink: #ebe6d8; --ink-2: #cfc9b9; --muted: #9f9888; --rule: #35322a; --signal-ink: #ff9a68; }
+  :root { --paper: #12110e; --paper-2: #1b1a15; --ink: #ebe6d8; --ink-2: #cfc9b9; --muted: #9f9888; --rule: #35322a; --signal: #ff7a3d; --signal-ink: #ff9a68; --blue: #8eaaf0; --red: #f06a5c; }
 }
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; }
-body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.55 var(--sans); overflow-wrap: anywhere; }
-a { color: inherit; text-underline-offset: 3px; }
-a:focus-visible { outline: 2px solid var(--signal-ink); outline-offset: 2px; }
-h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; line-height: 1.1; margin: 0; }
-p { margin: 0; }
-.mast, section, footer { padding-inline: var(--gutter); }
-.mast { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 14px; }
-.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; text-decoration: none; }
-.brand img { width: 28px; height: 28px; display: block; }
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(24px, 5vw, 72px); align-items: center; padding-block: clamp(40px, 8vw, 96px); border-bottom: 1px solid var(--rule); }
-.kicker { font-family: var(--mono); font-size: 14px; color: var(--signal-ink); margin-bottom: 18px; }
-h1 { font-size: clamp(40px, 7.4vw, 92px); }
-.dek { max-width: 40em; margin-top: 24px; font-size: clamp(18px, 2vw, 21px); color: var(--ink-2); }
-.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-.btn { display: inline-block; padding: 11px 18px; border: 1px solid var(--ink); font-family: var(--mono); font-size: 15px; text-decoration: none; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 16px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.55 var(--sans); overflow-wrap: break-word; }
+a { color: inherit; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--signal-ink); }
+a:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.015em; line-height: 1.08; margin: 0; }
+p, ol, ul, dl, dd, pre, table { margin: 0; }
+code { font-family: var(--mono); font-size: 0.88em; }
+.skip { position: absolute; left: -999px; top: 8px; padding: 8px 12px; background: var(--ink); color: var(--paper); }
+.skip:focus { left: 8px; color: var(--paper); }
+
+.mast { display: flex; align-items: center; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; padding: 12px var(--gutter); border-bottom: 1px solid var(--ink); font: 14px var(--mono); }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 16px; text-decoration: none; }
+.brand img { display: block; width: 28px; height: 28px; }
+.mast nav { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 22px; }
+.mast nav a { text-decoration: none; }
+.mast nav a:hover { text-decoration: underline; }
+
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: clamp(24px, 4vw, 64px); padding: clamp(40px, 7vw, 92px) var(--gutter) clamp(32px, 5vw, 60px); }
+.kicker { font: 15px var(--mono); color: var(--signal-ink); margin-bottom: 20px; }
+h1 { font-size: clamp(44px, 8.6vw, 128px); line-height: 0.98; letter-spacing: -0.03em; }
+.dek { max-width: 36em; margin-top: 28px; font: clamp(19px, 1.9vw, 24px)/1.42 var(--serif); color: var(--ink-2); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.btn { display: inline-block; padding: 12px 20px; border: 1px solid var(--ink); font: 15px var(--mono); text-decoration: none; }
+.btn:hover { background: var(--paper-2); color: var(--ink); }
 .btn-ink { background: var(--ink); color: var(--paper); }
-.hero-mark { width: clamp(150px, 22vw, 300px); height: auto; display: block; }
-section { padding-block: clamp(36px, 6vw, 68px); border-bottom: 1px solid var(--rule); }
-.sec-head { display: flex; gap: 14px; align-items: baseline; margin-bottom: 26px; }
-.sec-no { font-family: var(--mono); font-size: 14px; color: var(--muted); }
-h2 { font-size: clamp(28px, 4vw, 44px); }
-.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 44px); margin: 0; padding: 0; list-style: none; }
-.steps b { display: block; font-family: var(--serif); font-size: 23px; font-weight: 400; margin-bottom: 6px; }
-.steps span { color: var(--ink-2); }
-.table-wrap { overflow-x: auto; }
+.btn-ink:hover { background: var(--signal-ink); border-color: var(--signal-ink); color: #fff; }
+.hero-mark { display: block; width: clamp(150px, 21vw, 320px); height: auto; }
+
+.facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-block: 1px solid var(--ink); }
+.facts div { padding: 18px var(--gutter); border-left: 1px solid var(--rule); }
+.facts div:first-child { border-left: 0; }
+.facts b { display: block; font: 400 clamp(28px, 3.4vw, 46px)/1.05 var(--serif); letter-spacing: -0.02em; }
+.facts span { display: block; margin-top: 6px; font: 13.5px/1.4 var(--mono); color: var(--muted); }
+
+section { display: grid; grid-template-columns: clamp(120px, 15vw, 220px) minmax(0, 1fr); gap: 12px clamp(16px, 3vw, 40px); padding: clamp(40px, 6vw, 76px) var(--gutter); border-bottom: 1px solid var(--rule); }
+.no { font: 14px var(--mono); color: var(--signal-ink); padding-top: 12px; }
+.body { min-width: 0; }
+h2 { font-size: clamp(32px, 4.6vw, 62px); margin-bottom: clamp(20px, 3vw, 34px); }
+.lead { max-width: 40em; margin-bottom: 26px; font: clamp(18px, 1.7vw, 21px)/1.45 var(--serif); color: var(--ink-2); }
+.note { margin-top: 18px; max-width: 46em; font-size: 15px; color: var(--muted); }
+
+.span { margin-bottom: 30px; }
+.span-bar { position: relative; height: 34px; background: var(--signal); }
+.span-bar b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font: 600 15px var(--mono); color: #fff; }
+@media (prefers-color-scheme: dark) { .span-bar b { color: #12110e; } }
+.span-ends { display: flex; justify-content: space-between; gap: 16px; margin-top: 8px; font: 13px/1.4 var(--mono); color: var(--muted); }
+.span-ends span:last-child { text-align: right; }
+
+.scroll { overflow-x: auto; }
 table { width: 100%; border-collapse: collapse; }
-th, td { padding: 11px 16px 11px 0; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
-th { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--muted); }
-td.t { font-family: var(--mono); font-size: 14px; white-space: nowrap; }
-.mark { color: var(--signal-ink); font-weight: 600; }
-.note { margin-top: 18px; color: var(--muted); font-size: 15px; }
-.big { font-family: var(--serif); font-size: clamp(40px, 6vw, 68px); line-height: 1.05; margin-bottom: 8px; }
-pre { margin: 0; padding: 14px 16px; background: var(--paper-2); border: 1px solid var(--rule); font: 14px/1.5 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-block: 24px; font-family: var(--mono); font-size: 14px; color: var(--muted); }
-footer nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
-@media (max-width: 760px) {
+th, td { padding: 12px 18px 12px 0; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+thead th { border-bottom: 1px solid var(--ink); font: 500 13px var(--mono); color: var(--muted); }
+tbody th { font-weight: 400; color: var(--ink-2); }
+td.t { font: 14px var(--mono); white-space: nowrap; }
+.l2 { color: var(--signal-ink); } .l3 { color: var(--blue); } .l5 { color: var(--red); }
+
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 44px); padding: 0; list-style: none; }
+.steps.two { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-bottom: 30px; }
+.steps li { border-top: 1px solid var(--ink); padding-top: 14px; }
+.steps i { display: block; font: 400 42px/1 var(--serif); color: var(--signal); margin-bottom: 14px; }
+.steps h3 { font-size: 25px; margin-bottom: 8px; }
+.steps p { color: var(--ink-2); }
+
+.mail { max-width: 860px; border: 1px solid var(--ink); }
+.mail header { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 9px 14px; border-bottom: 1px solid var(--ink); font: 13px var(--mono); color: var(--muted); }
+.mail pre { padding: 18px 14px; font: 14px/1.6 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+.mail .s { color: var(--signal-ink); font-weight: 600; }
+
+.lab { display: block; margin: 22px 0 7px; font: 13px var(--mono); color: var(--muted); }
+pre.code { padding: 15px 16px; background: var(--ink); color: var(--paper); font: 13.5px/1.6 var(--mono); overflow-x: auto; white-space: pre; }
+
+.list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 44px); }
+.list h3 { font: 500 13px var(--mono); color: var(--muted); letter-spacing: 0; margin-bottom: 10px; }
+.list p { font: clamp(19px, 1.7vw, 22px)/1.45 var(--serif); }
+
+.badge-demo { display: block; height: 28px; width: auto; margin-bottom: 18px; }
+
+.plans th, .plans td { padding-right: 24px; }
+.plans thead th { font: 400 clamp(22px, 2.4vw, 30px) var(--serif); color: var(--ink); }
+.plans tr.price td { font: 400 clamp(26px, 3vw, 40px)/1.1 var(--serif); }
+.plans td small { display: block; margin-top: 4px; font: 13px var(--mono); color: var(--muted); }
+.plans tfoot td, .plans tfoot th { border-bottom: 0; padding-top: 20px; }
+.plans .btn { white-space: nowrap; }
+
+footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px 28px; padding: 22px var(--gutter); font: 14px var(--mono); color: var(--muted); }
+footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
+
+@media (max-width: 820px) {
   .hero { grid-template-columns: minmax(0, 1fr); }
-  .hero-mark { grid-row: 1; width: 120px; }
-  .steps { grid-template-columns: minmax(0, 1fr); }
+  .hero-mark { grid-row: 1; width: 104px; }
+  section { grid-template-columns: minmax(0, 1fr); }
+  .no { padding-top: 0; }
+  .steps, .steps.two, .list { grid-template-columns: minmax(0, 1fr); }
+  .facts { grid-template-columns: minmax(0, 1fr); }
+  .facts div { border-left: 0; border-top: 1px solid var(--rule); }
+  .facts div:first-child { border-top: 0; }
 }
 </style>
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="mast">
   <a class="brand" href="https://meerkatsec.win/"><img src="favicon.svg" alt="" width="28" height="28">meerkat</a>
-  <a href="https://meerkatsec.win/pricing">pricing</a>
+  <nav aria-label="Main">
+    <a href="#how">how it works</a>
+    <a href="#private">private code</a>
+    <a href="#badge">badge</a>
+    <a href="#plans">plans</a>
+    <a class="btn btn-ink" href="https://meerkatsec.win/login">start free</a>
+  </nav>
 </header>
-<main>
-<div class="hero" style="padding-inline: var(--gutter)">
+
+<main id="main">
+<div class="hero">
   <div>
     <p class="kicker">Know before the CVE.</p>
     <h1>Early warning system of vulnerabilities</h1>
     <p class="dek">Meerkat reads 1,000+ sources around the clock and emails you when a security problem touches the packages and products you run, often hours or days before a CVE exists.</p>
-    <p class="actions"><a class="btn btn-ink" href="https://meerkatsec.win/">start free →</a><a class="btn" href="https://meerkatsec.win/badge">add a repo badge</a></p>
+    <p class="actions"><a class="btn btn-ink" href="https://meerkatsec.win/login">start free →</a><a class="btn" href="#private">protect private code</a></p>
   </div>
-  <img class="hero-mark" src="meerkat.svg" alt="The Meerkat logo: a meerkat's head, its eyes glancing left and right" width="256" height="256">
+  <picture>
+    <source srcset="favicon.svg" media="(prefers-reduced-motion: reduce)">
+    <img class="hero-mark" src="meerkat.svg" alt="The Meerkat logo: a meerkat's head with its eyes glancing left and right" width="256" height="256">
+  </picture>
 </div>
 
-<section aria-labelledby="how">
-  <div class="sec-head"><span class="sec-no">§1</span><h2 id="how">How it works</h2></div>
-  <ol class="steps">
-    <li><b>Tell it what you run.</b><span>Point it at a GitHub repository, upload a lockfile or SBOM, or pick products by name.</span></li>
-    <li><b>It keeps watch.</b><span>1,000+ sources, around the clock, matched against the packages, versions and products you use.</span></li>
-    <li><b>You hear first.</b><span>One email thread per issue, from first warning to fix to exploitation.</span></li>
-  </ol>
-</section>
+<div class="facts">
+  <div><b>1,000+</b><span>sources, read around the clock</span></div>
+  <div><b>21 h 09 min</b><span>ahead of the CVE in PHP2Shell</span></div>
+  <div><b>0</b><span>lines of your code needed</span></div>
+</div>
 
 <section aria-labelledby="case">
-  <div class="sec-head"><span class="sec-no">§2</span><h2 id="case">PHP2Shell, October 2026</h2></div>
-  <p class="big">21 h 09 min</p>
-  <p class="note" style="margin: 0 0 22px">Head start before the CVE.</p>
-  <div class="table-wrap"><table>
-    <thead><tr><th scope="col">Time (UTC)</th><th scope="col">Level</th><th scope="col">What happened</th></tr></thead>
-    <tbody>
-      <tr><td class="t">2026-10-20 16:39</td><td class="t mark">L2</td><td>First public warning: two critical PHP flaws</td></tr>
-      <tr><td class="t">2026-10-20 20:22</td><td class="t mark">L2</td><td>The warning is confirmed</td></tr>
-      <tr><td class="t">2026-10-20 20:32</td><td class="t mark">L3</td><td>A critical PHP security release is announced</td></tr>
-      <tr><td class="t">2026-10-21 13:48</td><td class="t mark">L4</td><td>CVE records published</td></tr>
-      <tr><td class="t">2026-10-26</td><td class="t mark">L5</td><td>Actively exploited</td></tr>
-    </tbody>
-  </table></div>
+  <p class="no">§1</p>
+  <div class="body">
+    <h2 id="case">PHP2Shell, October 2026</h2>
+    <p class="lead">Most tools wait for a CVE record before they say anything. By then this flaw had been public for almost a day.</p>
+    <div class="span" role="img" aria-label="21 hours 9 minutes between the first public warning and the CVE records">
+      <div class="span-bar"><b>21 h 09 min</b></div>
+      <div class="span-ends"><span>First public warning<br>2026-10-20 16:39 UTC</span><span>CVE records published<br>2026-10-21 13:48 UTC</span></div>
+    </div>
+    <div class="scroll"><table>
+      <thead><tr><th scope="col">Time (UTC)</th><th scope="col">Level</th><th scope="col">What happened</th></tr></thead>
+      <tbody>
+        <tr><td class="t">2026-10-20 16:39</td><td class="t l2">▲ L2</td><td>First public warning: two critical PHP flaws</td></tr>
+        <tr><td class="t">2026-10-20 20:22</td><td class="t l2">▲ L2</td><td>The warning is confirmed</td></tr>
+        <tr><td class="t">2026-10-20 20:32</td><td class="t l3">■ L3</td><td>A critical PHP security release is announced</td></tr>
+        <tr><td class="t">2026-10-21 13:48</td><td class="t">● L4</td><td>CVE records published. Most scanners start here</td></tr>
+        <tr><td class="t">2026-10-26</td><td class="t l5">✖ L5</td><td>Actively exploited</td></tr>
+      </tbody>
+    </table></div>
+  </div>
 </section>
 
-<section aria-labelledby="plans">
-  <div class="sec-head"><span class="sec-no">§3</span><h2 id="plans">Plans</h2></div>
-  <div class="table-wrap"><table>
-    <thead><tr><th scope="col"></th><th scope="col">Individual</th><th scope="col">Team</th><th scope="col">Business</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">Price</th><td>Free</td><td>$5 per month</td><td>$50 per month</td></tr>
-      <tr><th scope="row">Projects</th><td>3</td><td>15</td><td>100</td></tr>
-      <tr><th scope="row">Extra watched items</th><td>25</td><td>150</td><td>1,000</td></tr>
-      <tr><th scope="row">Users</th><td>1</td><td>5</td><td>25</td></tr>
-    </tbody>
-  </table></div>
-  <p class="note">Every alert level is included on every plan. <a href="https://meerkatsec.win/pricing">Compare all features</a>.</p>
+<section aria-labelledby="how">
+  <p class="no">§2</p>
+  <div class="body">
+    <h2 id="how">How it works</h2>
+    <ol class="steps">
+      <li><i>1</i><h3>Tell it what you run.</h3><p>Point it at a GitHub repository, send a package list, or pick products by name.</p></li>
+      <li><i>2</i><h3>It keeps watch.</h3><p>1,000+ sources, around the clock, matched against the packages, versions and products you use.</p></li>
+      <li><i>3</i><h3>You hear first.</h3><p>One email thread per issue, from first warning to fix to exploitation.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section aria-labelledby="alert">
+  <p class="no">§3</p>
+  <div class="body">
+    <h2 id="alert">An alert, as it arrives</h2>
+    <div class="mail">
+      <header><span>alerts@meerkatsec.win</span><span>plain text</span></header>
+<pre><span class="s">[UNCONFIRMED][CRITICAL] Two critical flaws reported in PHP</span>
+
+Why you're getting this:
+  • acme/api: uses PHP (affected version)
+  • Watched product: PHP
+
+What to do now:
+  This is an early, unconfirmed report. A fix may not exist yet.
+  Check where you use it, plan an emergency update window, and
+  watch this thread: we will update it when the vendor confirms.
+
+Timeline:
+  • First public signal: 2026-10-20 16:39 UTC (before the CVE was published)
+  • No CVE published yet</pre>
+    </div>
+    <p class="note">No tracking pixels. The next update arrives as a reply in the same thread, not a new email.</p>
+  </div>
+</section>
+
+<section aria-labelledby="levels">
+  <p class="no">§4</p>
+  <div class="body">
+    <h2 id="levels">Every alert says how sure we are</h2>
+    <div class="scroll"><table>
+      <thead><tr><th scope="col">Level</th><th scope="col">Name</th><th scope="col">Means</th><th scope="col">Do</th></tr></thead>
+      <tbody>
+        <tr><td class="t l2">▲ L2</td><td>Unconfirmed report</td><td>Early reports of a serious problem, before any fix or CVE.</td><td>Prepare</td></tr>
+        <tr><td class="t l3">■ L3</td><td>Release announced</td><td>A security release is on its way.</td><td>Book a window</td></tr>
+        <tr><td class="t">● L4</td><td>Advisory published</td><td>Fixed versions are out, matched to your projects.</td><td>Update</td></tr>
+        <tr><td class="t l5">✖ L5</td><td>Actively exploited</td><td>Attackers are using it now.</td><td>Patch now</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Critical early reports are checked by a person before they go out. You choose the lowest level that emails you instantly.</p>
+  </div>
+</section>
+
+<section aria-labelledby="private">
+  <p class="no">§5</p>
+  <div class="body">
+    <h2 id="private">Private code, in two steps</h2>
+    <p class="lead">Your code stays with you. Meerkat receives package names and versions, and never needs access to your repository.</p>
+    <ol class="steps two">
+      <li><i>1</i><h3>Create a private project.</h3><p>Name it in <a href="https://meerkatsec.win/app/projects">Projects</a> and set the upload key it gives you.</p></li>
+      <li><i>2</i><h3>Run one command.</h3><p>Run it in your project folder. The scan happens on your machine.</p></li>
+    </ol>
+    <span class="lab">with osv-scanner</span>
+    <pre class="code" tabindex="0">osv-scanner scan source -r --offline --download-offline-databases --all-packages --format cyclonedx-1-5 . \
+  | jq '{bomFormat,components:[.components[]|select(.purl)|{purl}]}' \
+  | curl --fail-with-body --silent --show-error --header "Authorization: Bearer $MEERKAT_UPLOAD_KEY" --header "Content-Type: application/json" --data-binary @- https://meerkatsec.win/api/v1/upload</pre>
+    <span class="lab">or with syft</span>
+    <pre class="code" tabindex="0">SYFT_CHECK_FOR_APP_UPDATE=false syft . -o cyclonedx-json \
+  | jq '{bomFormat,components:[.components[]|select(.purl)|{purl}]}' \
+  | curl --fail-with-body --silent --show-error --header "Authorization: Bearer $MEERKAT_UPLOAD_KEY" --header "Content-Type: application/json" --data-binary @- https://meerkatsec.win/api/v1/upload</pre>
+    <p class="note">To see exactly what would be sent, run the command without its last line. <a href="https://meerkatsec.win/private-projects">Full guide, including updates on every merge</a>.</p>
+  </div>
+</section>
+
+<section aria-labelledby="coverage">
+  <p class="no">§6</p>
+  <div class="body">
+    <h2 id="coverage">What it watches</h2>
+    <div class="list">
+      <div><h3>Packages and platforms</h3><p>npm · PyPI · Maven · Go · crates.io · RubyGems · Packagist · NuGet · Pub · Hex · Swift · Docker images · GitHub Actions · Debian · Ubuntu · Red Hat · SUSE · Alpine · Amazon Linux</p></div>
+      <div><h3>Products, by name</h3><p>Microsoft · Apple · Google · Cisco · Fortinet · Palo Alto Networks · Ivanti · Citrix · VMware · Oracle · SAP · Atlassian · Siemens · Kubernetes · WordPress · OpenSSL · PHP · nginx · Jenkins · GitLab · and hundreds more</p></div>
+    </div>
+    <p class="note">Matching is version-aware: when your lockfile pins a version that isn't affected, you don't get an alert.</p>
+  </div>
 </section>
 
 <section aria-labelledby="badge">
-  <div class="sec-head"><span class="sec-no">§4</span><h2 id="badge">A badge for your README</h2></div>
-  <p style="margin-bottom: 18px; color: var(--ink-2)">The badge shows how many packages are watched, and links visitors to the same early warnings.</p>
-  <pre>[![Meerkat](https://meerkatsec.win/badge/github/OWNER/REPO.svg)](https://meerkatsec.win/r/github/OWNER/REPO)</pre>
-  <p class="note">Only add the badge to repositories you maintain.</p>
+  <p class="no">§7</p>
+  <div class="body">
+    <h2 id="badge">A badge for your README</h2>
+    <img class="badge-demo" src="badge-example.svg" alt="Meerkat badge showing 1,284 packages" height="28">
+    <p class="lead">The badge shows how many packages are watched, and links visitors to the same early warnings.</p>
+    <pre class="code" tabindex="0">[![Meerkat](https://meerkatsec.win/badge/github/OWNER/REPO.svg)](https://meerkatsec.win/r/github/OWNER/REPO)</pre>
+    <p class="note">Only add the badge to repositories you maintain.</p>
+  </div>
+</section>
+
+<section aria-labelledby="plans">
+  <p class="no">§8</p>
+  <div class="body">
+    <h2 id="plans">Plans</h2>
+    <p class="lead">Every alert level, on every plan.</p>
+    <div class="scroll"><table class="plans">
+      <thead><tr><td></td><th scope="col">Individual</th><th scope="col">Team</th><th scope="col">Business</th></tr></thead>
+      <tbody>
+        <tr class="price"><th scope="row">Price</th><td>Free<small>no card needed</small></td><td>$5<small>per month</small></td><td>$50<small>per month</small></td></tr>
+        <tr><th scope="row">Projects</th><td>3</td><td>15</td><td>100</td></tr>
+        <tr><th scope="row">Extra watched items</th><td>25</td><td>150</td><td>1,000</td></tr>
+        <tr><th scope="row">Users</th><td>1</td><td>5</td><td>25</td></tr>
+        <tr><th scope="row">Private projects</th><td>1</td><td>15</td><td>100</td></tr>
+        <tr><th scope="row">Daily digest</th><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+        <tr><th scope="row">Slack and webhooks</th><td>—</td><td>Yes</td><td>Yes</td></tr>
+        <tr><th scope="row">API</th><td>—</td><td>—</td><td>Yes</td></tr>
+        <tr><th scope="row">Audit log</th><td>—</td><td>—</td><td>Yes</td></tr>
+      </tbody>
+      <tfoot><tr><td></td><td><a class="btn btn-ink" href="https://meerkatsec.win/login">start free</a></td><td><a class="btn" href="https://meerkatsec.win/pricing">choose team</a></td><td><a class="btn" href="https://meerkatsec.win/pricing">choose business</a></td></tr></tfoot>
+    </table></div>
+  </div>
 </section>
 </main>
+
 <footer>
   <span>© 2026 Meerkat</span>
-  <nav aria-label="Footer"><a href="https://meerkatsec.win/">meerkatsec.win</a><a href="https://meerkatsec.win/pricing">pricing</a><a href="https://meerkatsec.win/badge">badge</a></nav>
+  <nav aria-label="Footer"><a href="https://meerkatsec.win/">meerkatsec.win</a><a href="https://meerkatsec.win/private-projects">private projects</a><a href="https://meerkatsec.win/badge">repo badge</a><a href="https://meerkatsec.win/security">security</a><a href="https://meerkatsec.win/legal/privacy">privacy</a><a href="https://meerkatsec.win/legal/terms">terms</a></nav>
 </footer>
 </body>
 </html>
