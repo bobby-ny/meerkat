@@ -181,7 +181,7 @@ footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
 .path pre.code { margin-top: 10px; font-size: 12.5px; }
 .path .lab { margin-top: 12px; }
 .wide-img { display: block; width: 100%; height: auto; margin-top: 30px; }
-.own-badge { display: block; height: 32px; width: auto; margin-bottom: 18px; }
+.own-badge { display: block; max-width: 100%; height: auto; margin-bottom: 18px; }
 @media (max-width: 880px) { .paths { grid-template-columns: minmax(0, 1fr); } }
 .badges { gap: 6px; margin-top: 18px; }
 .badges img { display: block; height: 20px; width: auto; }
@@ -235,7 +235,7 @@ footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
         <h3>Public GitHub repo</h3>
         <p class="tag">No install, token or GitHub App</p>
         <ol>
-          <li><div><b>Sign up</b><p>Go to <a href="https://meerkatsec.win/start">meerkatsec.win/start</a>, enter your email and open the sign-in link.</p></div></li>
+          <li><div><b>Sign up</b><p>Go to <a href="https://meerkatsec.win/start">meerkatsec.win/start</a>, enter your email and the code we send you.</p></div></li>
           <li><div><b>Add your repository</b><p>Open <a href="https://meerkatsec.win/app/projects">Projects</a>. Under <b style="display:inline;font-size:inherit">Add a public GitHub repository</b>, enter <code>owner/repo</code> and choose <b style="display:inline;font-size:inherit">Add and scan</b>.</p></div></li>
           <li><div><b>Get alerts</b><p>Meerkat reads the repository's lockfiles, manifests, Dockerfiles and GitHub Actions workflows, then emails you when something affects them.</p></div></li>
           <li><div><b>Add the badge</b><p>Optional. <a href="#badge">Copy the README snippet</a>.</p></div></li>
@@ -245,7 +245,7 @@ footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
         <h3>Private code</h3>
         <p class="tag">Only package URLs are sent</p>
         <ol>
-          <li><div><b>Sign up</b><p>Go to <a href="https://meerkatsec.win/start">meerkatsec.win/start</a>, enter your email and open the sign-in link.</p></div></li>
+          <li><div><b>Sign up</b><p>Go to <a href="https://meerkatsec.win/start">meerkatsec.win/start</a>, enter your email and the code we send you.</p></div></li>
           <li><div><b>Create a private project</b><p>Open <a href="https://meerkatsec.win/app/projects">Projects</a>. Under <b style="display:inline;font-size:inherit">Add a private project</b>, enter a name and choose <b style="display:inline;font-size:inherit">Create project</b>. Copy the line it shows into your terminal.</p><pre class="code" tabindex="0" aria-label="Set your upload key">export MEERKAT_UPLOAD_KEY=mku_your_key</pre></div></li>
           <li><div><b>Run one command in your project folder</b><span class="lab" id="c-osv">with osv-scanner</span><pre class="code" tabindex="0" aria-labelledby="c-osv">osv-scanner scan source -r --offline --download-offline-databases --all-packages --format cyclonedx-1-5 . \
   | jq '{bomFormat,components:[.components[]|select(.purl)|{purl}]}' \
@@ -340,10 +340,10 @@ Timeline:
   <p class="no">§5</p>
   <div class="body">
     <h2 id="badge">Badge</h2>
-    <a href="https://meerkatsec.win/r/github/bobby-ny/meerkat"><img class="own-badge" src="https://meerkatsec.win/badge/github/bobby-ny/meerkat.svg?size=large" alt="Meerkat badge for this repository" height="32"></a>
+    <a href="https://meerkatsec.win/r/github/bobby-ny/meerkat"><img class="own-badge" src="https://meerkatsec.win/badge/github/bobby-ny/meerkat.svg?size=large" alt="Meerkat card for this repository" width="480" height="176"></a>
     <p class="lead">Shows the number of packages watched in a public repo.</p>
     <pre class="code" tabindex="0" aria-label="Badge markdown">[![Meerkat](https://meerkatsec.win/badge/github/OWNER/REPO.svg)](https://meerkatsec.win/r/github/OWNER/REPO)</pre>
-    <span class="lab" id="c-large">larger version, 32 px tall</span>
+    <span class="lab" id="c-large">card with package counts by ecosystem</span>
     <pre class="code" tabindex="0" aria-labelledby="c-large">[![Meerkat](https://meerkatsec.win/badge/github/OWNER/REPO.svg?size=large)](https://meerkatsec.win/r/github/OWNER/REPO)</pre>
     <p class="note-line">Replace <code>OWNER/REPO</code> with a public repository you maintain.</p>
   </div>

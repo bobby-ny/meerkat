@@ -195,7 +195,7 @@ If your lockfile pins a version that isn't affected, you don't get an alert.
 [![Meerkat](https://meerkatsec.win/badge/github/OWNER/REPO.svg)](https://meerkatsec.win/r/github/OWNER/REPO)
 ```
 
-Larger version (32 px tall):
+Card with package counts by ecosystem:
 
 ```markdown
 [![Meerkat](https://meerkatsec.win/badge/github/OWNER/REPO.svg?size=large)](https://meerkatsec.win/r/github/OWNER/REPO)
