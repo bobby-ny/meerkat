@@ -1,6 +1,7 @@
 <a href="https://meerkatsec.win"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/hero-dark.png"><img src="docs/assets/hero-light.png" alt="Timeline of PHP2Shell: first warning Oct 20 16:39 UTC, CVE published Oct 21 13:48 UTC, 21 h 09 min later." width="100%"></picture></a>
 
 [![Meerkat](https://meerkatsec.win/badge/github/bobby-ny/meerkat.svg)](https://meerkatsec.win/r/github/bobby-ny/meerkat)
+[![Pages](https://github.com/bobby-ny/meerkat/actions/workflows/pages/pages-build-deployment/badge.svg)](https://bobby-ny.github.io/meerkat/)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fmeerkatsec.win&label=meerkatsec.win&style=flat)](https://meerkatsec.win)
 [![Sources](https://img.shields.io/badge/sources-1%2C000%2B-e4520e?style=flat)](https://meerkatsec.win)
 [![SBOM](https://img.shields.io/badge/SBOM-CycloneDX%20%7C%20SPDX-17150f?style=flat)](#private-code)
