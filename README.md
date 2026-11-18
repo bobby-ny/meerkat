@@ -1,11 +1,12 @@
 <a href="https://meerkatsec.win"><picture><source media="(prefers-color-scheme: dark)" srcset="docs/assets/hero-dark.png"><img src="docs/assets/hero-light.png" alt="Timeline of PHP2Shell: first warning Oct 20 16:39 UTC, CVE published Oct 21 13:48 UTC, 21 h 09 min later." width="100%"></picture></a>
 
 [![Meerkat](https://meerkatsec.win/badge/github/bobby-ny/meerkat.svg)](https://meerkatsec.win/r/github/bobby-ny/meerkat)
+[![OSV-Scanner](https://img.shields.io/badge/OSV--Scanner-supported-4285F4?style=flat&logo=google&logoColor=white)](https://github.com/google/osv-scanner)
 [![Pages](https://github.com/bobby-ny/meerkat/actions/workflows/pages/pages-build-deployment/badge.svg)](https://bobby-ny.github.io/meerkat/)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fmeerkatsec.win&label=meerkatsec.win&style=flat)](https://meerkatsec.win)
 [![Sources](https://img.shields.io/badge/sources-1%2C000%2B-e4520e?style=flat)](https://meerkatsec.win)
 [![SBOM](https://img.shields.io/badge/SBOM-CycloneDX%20%7C%20SPDX-17150f?style=flat)](#private-code)
-[![Scanners](https://img.shields.io/badge/scanners-OSV--Scanner%20%7C%20Syft-17150f?style=flat)](#private-code)
+[![Syft](https://img.shields.io/badge/Syft-supported-17150f?style=flat)](https://github.com/anchore/syft)
 [![Alerts](https://img.shields.io/badge/alerts-email%20%7C%20Slack%20%7C%20webhook-17150f?style=flat)](#alerts)
 [![Last commit](https://img.shields.io/github/last-commit/bobby-ny/meerkat?style=flat)](https://github.com/bobby-ny/meerkat/commits/main)
 [![Issues](https://img.shields.io/github/issues/bobby-ny/meerkat?style=flat)](https://github.com/bobby-ny/meerkat/issues)
@@ -218,7 +219,7 @@ The badge shows the number of packages watched in a public repo.
 | API | No | No | Yes |
 | Audit log | No | No | Yes |
 
-The first 1,000 sign-ups get in right away. After that, new users join a waitlist and each user can invite 3 people.
+Each user can invite 3 people.
 
 ## Security
 
