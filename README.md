@@ -4,7 +4,7 @@
 
 <p align="center"><b>Early warning system of vulnerabilities.</b><br>Know before the CVE.</p>
 
-<p align="center"><a href="https://meerkatsec.win/">Website</a> · <a href="https://meerkatsec.win/waitlist">Join the waitlist</a> · <a href="https://meerkatsec.win/private-projects">Private projects</a> · <a href="https://meerkatsec.win/badge">Repo badge</a> · <a href="https://meerkatsec.win/pricing">Pricing</a></p>
+<p align="center"><a href="https://meerkatsec.win/">Website</a> · <a href="https://meerkatsec.win/start">Get started</a> · <a href="https://meerkatsec.win/private-projects">Private projects</a> · <a href="https://meerkatsec.win/badge">Repo badge</a> · <a href="https://meerkatsec.win/pricing">Pricing</a></p>
 
 Meerkat reads 1,000+ sources around the clock and emails you when a security problem touches the packages and products you run, often hours or days before a CVE exists.
 
@@ -47,7 +47,7 @@ Replace `OWNER/REPO` with a public repository you maintain:
 
 ## Plans
 
-Meerkat is opening in weekly waves. [Join the waitlist](https://meerkatsec.win/waitlist). Paid plans skip it.
+The first 1,000 sign-ups get in straight away. After that, Meerkat opens in weekly waves. Every member can invite 3 friends. [Get started](https://meerkatsec.win/start).
 
 | | Individual | Team | Business |
 | --- | --- | --- | --- |
