@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<title>Meerkat · Early warning system of vulnerabilities</title>
+<meta name="description" content="Meerkat reads 1,000+ sources around the clock and emails you when a security problem touches the packages and products you run, often hours or days before a CVE exists.">
+<link rel="canonical" href="https://meerkatsec.win/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Meerkat · Early warning system of vulnerabilities">
+<meta property="og:description" content="Know before the CVE.">
+<meta property="og:url" content="https://meerkatsec.win/">
+<style>
+:root {
+  --paper: #f2efe6; --paper-2: #e9e5d8; --ink: #17150f; --ink-2: #3b372d; --muted: #6c6658; --rule: #d2cbbb; --signal-ink: #b13f07;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", "URW Palladio L", Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
+  --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code", Menlo, Consolas, "Liberation Mono", monospace;
+  --gutter: clamp(16px, 3vw, 40px);
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --paper: #12110e; --paper-2: #1b1a15; --ink: #ebe6d8; --ink-2: #cfc9b9; --muted: #9f9888; --rule: #35322a; --signal-ink: #ff9a68; }
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 17px/1.55 var(--sans); overflow-wrap: anywhere; }
+a { color: inherit; text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--signal-ink); outline-offset: 2px; }
+h1, h2 { font-family: var(--serif); font-weight: 400; letter-spacing: -0.01em; line-height: 1.1; margin: 0; }
+p { margin: 0; }
+.mast, section, footer { padding-inline: var(--gutter); }
+.mast { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 14px; border-bottom: 1px solid var(--rule); font-family: var(--mono); font-size: 14px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; text-decoration: none; }
+.brand img { width: 28px; height: 28px; display: block; }
+.hero { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(24px, 5vw, 72px); align-items: center; padding-block: clamp(40px, 8vw, 96px); border-bottom: 1px solid var(--rule); }
+.kicker { font-family: var(--mono); font-size: 14px; color: var(--signal-ink); margin-bottom: 18px; }
+h1 { font-size: clamp(40px, 7.4vw, 92px); }
+.dek { max-width: 40em; margin-top: 24px; font-size: clamp(18px, 2vw, 21px); color: var(--ink-2); }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn { display: inline-block; padding: 11px 18px; border: 1px solid var(--ink); font-family: var(--mono); font-size: 15px; text-decoration: none; }
+.btn-ink { background: var(--ink); color: var(--paper); }
+.hero-mark { width: clamp(150px, 22vw, 300px); height: auto; display: block; }
+section { padding-block: clamp(36px, 6vw, 68px); border-bottom: 1px solid var(--rule); }
+.sec-head { display: flex; gap: 14px; align-items: baseline; margin-bottom: 26px; }
+.sec-no { font-family: var(--mono); font-size: 14px; color: var(--muted); }
+h2 { font-size: clamp(28px, 4vw, 44px); }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 44px); margin: 0; padding: 0; list-style: none; }
+.steps b { display: block; font-family: var(--serif); font-size: 23px; font-weight: 400; margin-bottom: 6px; }
+.steps span { color: var(--ink-2); }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { padding: 11px 16px 11px 0; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+th { font-family: var(--mono); font-size: 13px; font-weight: 500; color: var(--muted); }
+td.t { font-family: var(--mono); font-size: 14px; white-space: nowrap; }
+.mark { color: var(--signal-ink); font-weight: 600; }
+.note { margin-top: 18px; color: var(--muted); font-size: 15px; }
+.big { font-family: var(--serif); font-size: clamp(40px, 6vw, 68px); line-height: 1.05; margin-bottom: 8px; }
+pre { margin: 0; padding: 14px 16px; background: var(--paper-2); border: 1px solid var(--rule); font: 14px/1.5 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; }
+footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 24px; padding-block: 24px; font-family: var(--mono); font-size: 14px; color: var(--muted); }
+footer nav { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+@media (max-width: 760px) {
+  .hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-mark { grid-row: 1; width: 120px; }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+}
+</style>
+</head>
+<body>
+<header class="mast">
+  <a class="brand" href="https://meerkatsec.win/"><img src="favicon.svg" alt="" width="28" height="28">meerkat</a>
+  <a href="https://meerkatsec.win/pricing">pricing</a>
+</header>
+<main>
+<div class="hero" style="padding-inline: var(--gutter)">
+  <div>
+    <p class="kicker">Know before the CVE.</p>
+    <h1>Early warning system of vulnerabilities</h1>
+    <p class="dek">Meerkat reads 1,000+ sources around the clock and emails you when a security problem touches the packages and products you run, often hours or days before a CVE exists.</p>
+    <p class="actions"><a class="btn btn-ink" href="https://meerkatsec.win/">start free →</a><a class="btn" href="https://meerkatsec.win/badge">add a repo badge</a></p>
+  </div>
+  <img class="hero-mark" src="meerkat.svg" alt="The Meerkat logo: a meerkat's head, its eyes glancing left and right" width="256" height="256">
+</div>
+
+<section aria-labelledby="how">
+  <div class="sec-head"><span class="sec-no">§1</span><h2 id="how">How it works</h2></div>
+  <ol class="steps">
+    <li><b>Tell it what you run.</b><span>Point it at a GitHub repository, upload a lockfile or SBOM, or pick products by name.</span></li>
+    <li><b>It keeps watch.</b><span>1,000+ sources, around the clock, matched against the packages, versions and products you use.</span></li>
+    <li><b>You hear first.</b><span>One email thread per issue, from first warning to fix to exploitation.</span></li>
+  </ol>
+</section>
+
+<section aria-labelledby="case">
+  <div class="sec-head"><span class="sec-no">§2</span><h2 id="case">PHP2Shell, October 2026</h2></div>
+  <p class="big">21 h 09 min</p>
+  <p class="note" style="margin: 0 0 22px">Head start before the CVE.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col">Time (UTC)</th><th scope="col">Level</th><th scope="col">What happened</th></tr></thead>
+    <tbody>
+      <tr><td class="t">2026-10-20 16:39</td><td class="t mark">L2</td><td>First public warning: two critical PHP flaws</td></tr>
+      <tr><td class="t">2026-10-20 20:22</td><td class="t mark">L2</td><td>The warning is confirmed</td></tr>
+      <tr><td class="t">2026-10-20 20:32</td><td class="t mark">L3</td><td>A critical PHP security release is announced</td></tr>
+      <tr><td class="t">2026-10-21 13:48</td><td class="t mark">L4</td><td>CVE records published</td></tr>
+      <tr><td class="t">2026-10-26</td><td class="t mark">L5</td><td>Actively exploited</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section aria-labelledby="plans">
+  <div class="sec-head"><span class="sec-no">§3</span><h2 id="plans">Plans</h2></div>
+  <div class="table-wrap"><table>
+    <thead><tr><th scope="col"></th><th scope="col">Individual</th><th scope="col">Team</th><th scope="col">Business</th></tr></thead>
+    <tbody>
+      <tr><th scope="row">Price</th><td>Free</td><td>$5 per month</td><td>$50 per month</td></tr>
+      <tr><th scope="row">Projects</th><td>3</td><td>15</td><td>100</td></tr>
+      <tr><th scope="row">Extra watched items</th><td>25</td><td>150</td><td>1,000</td></tr>
+      <tr><th scope="row">Users</th><td>1</td><td>5</td><td>25</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note">Every alert level is included on every plan. <a href="https://meerkatsec.win/pricing">Compare all features</a>.</p>
+</section>
+
+<section aria-labelledby="badge">
+  <div class="sec-head"><span class="sec-no">§4</span><h2 id="badge">A badge for your README</h2></div>
+  <p style="margin-bottom: 18px; color: var(--ink-2)">The badge shows how many packages are watched, and links visitors to the same early warnings.</p>
+  <pre>[![Meerkat](https://meerkatsec.win/badge/github/OWNER/REPO.svg)](https://meerkatsec.win/r/github/OWNER/REPO)</pre>
+  <p class="note">Only add the badge to repositories you maintain.</p>
+</section>
+</main>
+<footer>
+  <span>© 2026 Meerkat</span>
+  <nav aria-label="Footer"><a href="https://meerkatsec.win/">meerkatsec.win</a><a href="https://meerkatsec.win/pricing">pricing</a><a href="https://meerkatsec.win/badge">badge</a></nav>
+</footer>
+</body>
+</html>
