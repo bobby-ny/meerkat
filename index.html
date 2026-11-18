@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self' https://meerkatsec.win https://img.shields.io; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <title>Meerkat · Early warning system of vulnerabilities</title>
 <meta name="description" content="Meerkat reads 1,000+ sources around the clock and emails you when a security problem touches the packages and products you run, often hours or days before a CVE exists.">
@@ -16,11 +16,7 @@
 <meta property="og:title" content="Meerkat · Early warning system of vulnerabilities">
 <meta property="og:description" content="Know before the CVE. Email alerts for the packages and products you run.">
 <meta property="og:url" content="https://bobby-ny.github.io/meerkat/">
-<meta property="og:image" content="https://bobby-ny.github.io/meerkat/og.png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Meerkat: early warning system of vulnerabilities">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Meerkat","applicationCategory":"SecurityApplication","operatingSystem":"Web","url":"https://meerkatsec.win/","description":"Early warning system of vulnerabilities.","offers":[{"@type":"Offer","name":"Individual","price":"0","priceCurrency":"USD"},{"@type":"Offer","name":"Team","price":"5","priceCurrency":"USD"},{"@type":"Offer","name":"Business","price":"50","priceCurrency":"USD"}]}</script>
 <style>
 :root {
@@ -72,7 +68,7 @@ h1 { font-size: clamp(44px, 7.4vw, 112px); line-height: 0.98; letter-spacing: -0
 .term { min-width: 0; background: var(--term); color: var(--term-ink); font: 13.5px/1.5 var(--mono); }
 .term-head { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding: 10px 14px; border-bottom: 1px solid #3b372d; color: var(--term-dim); }
 .term ol { padding: 6px 14px 10px; }
-.term li { display: grid; grid-template-columns: 7.7em 3.6em minmax(0, 1fr); gap: 2px 8px; padding: 10px 0; border-bottom: 1px solid #2d2a22; }
+.term li { display: grid; grid-template-columns: 5.2em 3.6em minmax(0, 1fr); gap: 2px 8px; padding: 10px 0; border-bottom: 1px solid #2d2a22; }
 .term li:last-child { border-bottom: 0; }
 .term time { color: var(--term-dim); }
 .term .note { grid-column: 3; color: var(--term-dim); }
@@ -156,6 +152,39 @@ footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
 }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 @media print { .notice, .mast nav, .actions { display: none; } body { background: #fff; color: #000; } }
+
+.band { background: #0d0d0b; color: #f0ebde; }
+.band .hero { display: block; padding-bottom: clamp(32px, 4vw, 52px); }
+.band h1 { max-width: 12em; font-size: clamp(48px, 9vw, 148px); }
+.band .kicker { color: #ff9a68; }
+.band .dek { max-width: 36em; color: #cfc9b9; }
+.band .btn { border-color: #f0ebde; color: #f0ebde; }
+.band .btn:hover { background: #24221c; color: #f0ebde; }
+.band .btn-ink { background: #f0ebde; color: #0d0d0b; }
+.band .btn-ink:hover { background: #ff9a68; border-color: #ff9a68; color: #0d0d0b; }
+.gap { margin-top: clamp(36px, 5vw, 64px); }
+.gap .span-big { color: #f0ebde; }
+.band .track { background: #ff7a3d; }
+.band .track i { background: #f0ebde; }
+.band .track-labels { color: #a39c8b; }
+.band .track-labels b { color: #f0ebde; }
+.paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); }
+.path { min-width: 0; padding: clamp(18px, 2.4vw, 34px); border: 1px solid var(--ink); }
+.path h3 { font-size: clamp(30px, 3.2vw, 46px); }
+.path .tag { margin: 8px 0 18px; font: 600 14px var(--mono); color: var(--signal-ink); }
+.path ol { counter-reset: step; }
+.path li { display: grid; grid-template-columns: 1.6em minmax(0, 1fr); gap: 2px 12px; padding: 16px 0; border-top: 1px solid var(--rule); counter-increment: step; }
+.path li::before { content: counter(step); font: 34px/1 var(--serif); color: var(--signal); }
+.path li > div { min-width: 0; }
+.path li b { display: block; margin-bottom: 3px; font-size: 18px; }
+.path li p { color: var(--ink-2); }
+.path pre.code { margin-top: 10px; font-size: 12.5px; }
+.path .lab { margin-top: 12px; }
+.wide-img { display: block; width: 100%; height: auto; margin-top: 30px; }
+.own-badge { display: block; height: 32px; width: auto; margin-bottom: 18px; }
+@media (max-width: 880px) { .paths { grid-template-columns: minmax(0, 1fr); } }
+.badges { gap: 6px; margin-top: 18px; }
+.badges img { display: block; height: 20px; width: auto; }
 </style>
 </head>
 <body>
@@ -164,69 +193,99 @@ footer nav { display: flex; flex-wrap: wrap; gap: 6px 20px; }
 <header class="mast">
   <a class="brand" href="https://meerkatsec.win/"><img src="favicon.svg" alt="" width="30" height="30">meerkat</a>
   <nav aria-label="Main">
-    <a href="#how">how it works</a>
+    <a href="#use">usage</a>
     <a href="#alert">alerts</a>
-    <a href="#private">private code</a>
     <a href="#badge">badge</a>
     <a href="#plans">plans</a>
+    <a href="https://github.com/bobby-ny/meerkat">github</a>
     <a href="https://meerkatsec.win/login">sign in</a>
     <a class="btn btn-ink" href="https://meerkatsec.win/start">get started</a>
   </nav>
 </header>
 
 <main id="main">
-<div class="hero">
-  <div>
+<div class="band">
+  <div class="hero">
     <p class="kicker"><picture><source srcset="favicon.svg" media="(prefers-reduced-motion: reduce)"><img src="meerkat.svg" alt="" width="44" height="44"></picture>Know before the CVE.</p>
     <h1>Early warning system of vulnerabilities</h1>
     <p class="dek">Meerkat reads 1,000+ sources around the clock and emails you when a security problem touches the packages and products you run, often hours or days before a CVE exists.</p>
-    <p class="actions"><a class="btn btn-ink" href="https://meerkatsec.win/start">get started →</a><a class="btn" href="#alert">see an alert</a></p>
+    <p class="actions"><a class="btn btn-ink" href="https://meerkatsec.win/start">get started →</a><a class="btn" href="#use">usage</a><a class="btn" href="https://github.com/bobby-ny/meerkat">github</a></p>
+    <p class="actions badges"><a href="https://meerkatsec.win/r/github/bobby-ny/meerkat"><img src="https://meerkatsec.win/badge/github/bobby-ny/meerkat.svg" alt="Meerkat packages watched" height="20"></a><a href="https://meerkatsec.win"><img src="https://img.shields.io/website?url=https%3A%2F%2Fmeerkatsec.win&amp;label=meerkatsec.win&amp;style=flat" alt="Site status" height="20"></a><img src="https://img.shields.io/badge/sources-1%2C000%2B-e4520e?style=flat" alt="1,000+ sources" height="20"><img src="https://img.shields.io/badge/SBOM-CycloneDX%20%7C%20SPDX-17150f?style=flat" alt="CycloneDX and SPDX" height="20"><img src="https://img.shields.io/badge/scanners-OSV--Scanner%20%7C%20Syft-17150f?style=flat" alt="OSV-Scanner and Syft" height="20"><img src="https://img.shields.io/badge/alerts-email%20%7C%20Slack%20%7C%20webhook-17150f?style=flat" alt="Email, Slack and webhook alerts" height="20"></p>
+    <div class="gap">
+      <p class="span-big">21 h 09 min</p>
+      <p class="dek" style="margin-top:8px">ahead of the CVE in the PHP2Shell replay, October 2026.</p>
+      <div class="track" role="img" aria-label="The first public warning came 21 hours 9 minutes before the CVE records"><i style="left:0"></i><i style="left:18%"></i><i style="right:0"></i></div>
+      <div class="track-labels"><span><b>16:39</b>First warning</span><span><b>20:32</b>Security release announced</span><span><b>13:48 next day</b>CVE published</span></div>
+    </div>
   </div>
-  <figure class="term" aria-label="Replay of the PHP2Shell timeline">
-    <figcaption class="term-head"><span>PHP2Shell replay</span><span>all times UTC</span></figcaption>
-    <ol>
-      <li><time datetime="2026-10-20T16:39Z">Oct 20 16:39</time><span class="lv2">▲ L2</span><span>Two critical PHP flaws reported<span class="note" style="display:block">first alert</span></span></li>
-      <li><time datetime="2026-10-20T20:32Z">Oct 20 20:32</time><span class="lv3">■ L3</span><span>Critical PHP security release announced<span class="note" style="display:block">same email thread</span></span></li>
-      <li><time datetime="2026-10-21T13:48Z">Oct 21 13:48</time><span class="lv4">● L4</span><span>CVE records published<span class="note" style="display:block">most scanners start here</span></span></li>
-      <li><time datetime="2026-10-26">Oct 26</time><span class="lv5">✖ L5</span><span>Actively exploited</span></li>
-    </ol>
-    <p class="term-foot">21 h 09 min ahead of the CVE</p>
-  </figure>
 </div>
 
 <div class="facts">
   <div><b>1,000+</b><span>sources, read around the clock</span></div>
-  <div><b>21 h 09 min</b><span>ahead of the CVE in the PHP2Shell replay</span></div>
+  <div><b>5 MB</b><span>max SBOM upload, CycloneDX or SPDX</span></div>
   <div><b>0</b><span>lines of your code needed</span></div>
 </div>
 
-<section aria-labelledby="case">
+<section aria-labelledby="use">
   <p class="no">§1</p>
   <div class="body">
-    <h2 id="case">The gap before the CVE</h2>
-    <p class="lead">Most tools wait for a CVE record before they say anything. In PHP2Shell, the flaw had been public for almost a day by then.</p>
-    <p class="span-big">21 h 09 min</p>
-    <div class="track" role="img" aria-label="The first public warning came 21 hours 9 minutes before the CVE records"><i style="left:0"></i><i style="left:18%"></i><i style="right:0"></i></div>
-    <div class="track-labels"><span><b>16:39</b>First public warning</span><span><b>20:32</b>Security release announced</span><span><b>13:48 next day</b>CVE records published</span></div>
-  </div>
-</section>
-
-<section aria-labelledby="how">
-  <p class="no">§2</p>
-  <div class="body">
-    <h2 id="how">How it works</h2>
-    <ol class="steps">
-      <li><i>1</i><h3>Tell it what you run.</h3><p>Point it at a GitHub repository, send a package list, or pick products by name.</p></li>
-      <li><i>2</i><h3>It keeps watch.</h3><p>1,000+ sources, around the clock, matched against the packages, versions and products you use.</p></li>
-      <li><i>3</i><h3>You hear first.</h3><p>One email thread per issue, from first warning to fix to exploitation.</p></li>
-    </ol>
+    <h2 id="use">Usage</h2>
+    <div class="paths">
+      <article class="path">
+        <h3>Public GitHub repo</h3>
+        <p class="tag">No install, token or GitHub App</p>
+        <ol>
+          <li><div><b>Sign up</b><p>Go to <a href="https://meerkatsec.win/start">meerkatsec.win/start</a>, enter your email and open the sign-in link.</p></div></li>
+          <li><div><b>Add your repository</b><p>Open <a href="https://meerkatsec.win/app/projects">Projects</a>. Under <b style="display:inline;font-size:inherit">Add a public GitHub repository</b>, enter <code>owner/repo</code> and choose <b style="display:inline;font-size:inherit">Add and scan</b>.</p></div></li>
+          <li><div><b>Get alerts</b><p>Meerkat reads the repository's lockfiles, manifests, Dockerfiles and GitHub Actions workflows, then emails you when something affects them.</p></div></li>
+          <li><div><b>Add the badge</b><p>Optional. <a href="#badge">Copy the README snippet</a>.</p></div></li>
+        </ol>
+      </article>
+      <article class="path">
+        <h3>Private code</h3>
+        <p class="tag">Only package URLs are sent</p>
+        <ol>
+          <li><div><b>Sign up</b><p>Go to <a href="https://meerkatsec.win/start">meerkatsec.win/start</a>, enter your email and open the sign-in link.</p></div></li>
+          <li><div><b>Create a private project</b><p>Open <a href="https://meerkatsec.win/app/projects">Projects</a>. Under <b style="display:inline;font-size:inherit">Add a private project</b>, enter a name and choose <b style="display:inline;font-size:inherit">Create project</b>. Copy the line it shows into your terminal.</p><pre class="code" tabindex="0" aria-label="Set your upload key">export MEERKAT_UPLOAD_KEY=mku_your_key</pre></div></li>
+          <li><div><b>Run one command in your project folder</b><span class="lab" id="c-osv">with osv-scanner</span><pre class="code" tabindex="0" aria-labelledby="c-osv">osv-scanner scan source -r --offline --download-offline-databases --all-packages --format cyclonedx-1-5 . \
+  | jq '{bomFormat,components:[.components[]|select(.purl)|{purl}]}' \
+  | curl --fail-with-body --silent --show-error --header "Authorization: Bearer $MEERKAT_UPLOAD_KEY" --header "Content-Type: application/json" --data-binary @- https://meerkatsec.win/api/v1/upload</pre><span class="lab" id="c-syft">or with syft</span><pre class="code" tabindex="0" aria-labelledby="c-syft">SYFT_CHECK_FOR_APP_UPDATE=false syft . -o cyclonedx-json \
+  | jq '{bomFormat,components:[.components[]|select(.purl)|{purl}]}' \
+  | curl --fail-with-body --silent --show-error --header "Authorization: Bearer $MEERKAT_UPLOAD_KEY" --header "Content-Type: application/json" --data-binary @- https://meerkatsec.win/api/v1/upload</pre></div></li>
+          <li><div><b>Keep the list current</b><p>Add the <a href="#ci">GitHub Actions workflow</a> and it updates on every merge.</p></div></li>
+        </ol>
+      </article>
+    </div>
+    <picture><source media="(prefers-color-scheme: dark)" srcset="assets/private-dark.png"><img class="wide-img" src="assets/private-light.png" width="1600" height="470" alt="Your source code stays on your machine. OSV-Scanner or Syft reads your lockfiles and sends only package names and versions to Meerkat."></picture>
+    <h3 id="ci" style="margin-top:34px;font-size:28px">Update a private project on every merge</h3>
+    <p class="note-line">Save your upload key as the repository secret <code>MEERKAT_UPLOAD_KEY</code>, then add this file as <code>.github/workflows/meerkat.yml</code>.</p>
+    <pre class="code" tabindex="0" aria-label="GitHub Actions workflow" style="margin-top:14px">name: Meerkat package list
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Send package names and versions to Meerkat
+        env:
+          MEERKAT_UPLOAD_KEY: ${{ secrets.MEERKAT_UPLOAD_KEY }}
+        run: |
+          docker run --rm -v "$PWD:/src:ro" -w /src ghcr.io/google/osv-scanner:v2.7.1@sha256:a70ffffc2bfd33482953e5d6b64c6fcdb30239717a07b0f0d3ab2859ce3e4cde \
+            scan source -r --offline --download-offline-databases --all-packages --format cyclonedx-1-5 . \
+            | jq '{bomFormat,components:[.components[]|select(.purl)|{purl}]}' \
+            | curl --fail-with-body --silent --show-error --header "Authorization: Bearer $MEERKAT_UPLOAD_KEY" --header "Content-Type: application/json" --data-binary @- https://meerkatsec.win/api/v1/upload</pre>
+    <p class="note-line">To see exactly what would be sent, run the command without its last line. <a href="https://meerkatsec.win/private-projects">Read the full private projects guide</a>.</p>
   </div>
 </section>
 
 <section aria-labelledby="alert">
-  <p class="no">§3</p>
+  <p class="no">§2</p>
   <div class="body">
-    <h2 id="alert">An alert, as it arrives</h2>
+    <h2 id="alert">Alerts</h2>
     <div class="mail">
       <header><span>alerts@meerkatsec.win</span><span>plain text</span></header>
 <pre tabindex="0"><span class="s">[UNCONFIRMED][CRITICAL] Two critical flaws reported in PHP</span>
@@ -249,9 +308,9 @@ Timeline:
 </section>
 
 <section aria-labelledby="levels">
-  <p class="no">§4</p>
+  <p class="no">§3</p>
   <div class="body">
-    <h2 id="levels">Every alert says how sure we are</h2>
+    <h2 id="levels">Levels</h2>
     <div class="scroll" tabindex="0" role="region" aria-label="Alert levels"><table>
       <thead><tr><th scope="col">Level</th><th scope="col">Name</th><th scope="col">Means</th><th scope="col">Do</th></tr></thead>
       <tbody>
@@ -265,33 +324,10 @@ Timeline:
   </div>
 </section>
 
-<section aria-labelledby="private">
-  <p class="no">§5</p>
-  <div class="body">
-    <h2 id="private">Private code, in two steps</h2>
-    <p class="lead">Your code stays with you. Meerkat receives package names and versions, and never needs access to your repository.</p>
-    <ol class="steps two">
-      <li><i>1</i><h3>Create a private project.</h3><p>Name it in <a href="https://meerkatsec.win/app/projects">Projects</a> and set the upload key it gives you.</p></li>
-      <li><i>2</i><h3>Run one command.</h3><p>Run it in your project folder. The scan happens on your machine.</p></li>
-    </ol>
-    <span class="lab" id="c-osv">with osv-scanner</span>
-    <pre class="code" tabindex="0" aria-labelledby="c-osv">osv-scanner scan source -r --offline --download-offline-databases --all-packages --format cyclonedx-1-5 . \
-  | jq '{bomFormat,components:[.components[]|select(.purl)|{purl}]}' \
-  | curl --fail-with-body --silent --show-error --header "Authorization: Bearer $MEERKAT_UPLOAD_KEY" --header "Content-Type: application/json" --data-binary @- https://meerkatsec.win/api/v1/upload</pre>
-    <span class="lab" id="c-syft">or with syft</span>
-    <pre class="code" tabindex="0" aria-labelledby="c-syft">SYFT_CHECK_FOR_APP_UPDATE=false syft . -o cyclonedx-json \
-  | jq '{bomFormat,components:[.components[]|select(.purl)|{purl}]}' \
-  | curl --fail-with-body --silent --show-error --header "Authorization: Bearer $MEERKAT_UPLOAD_KEY" --header "Content-Type: application/json" --data-binary @- https://meerkatsec.win/api/v1/upload</pre>
-    <span class="lab" id="c-sent">everything that leaves your machine</span>
-    <pre class="code" tabindex="0" aria-labelledby="c-sent">{"bomFormat":"CycloneDX","components":[{"purl":"pkg:npm/lodash@4.17.20"},{"purl":"pkg:pypi/django@3.2.0"}]}</pre>
-    <p class="note-line">To see exactly what would be sent, run the command without its last line. <a href="https://meerkatsec.win/private-projects">Full guide, including updates on every merge</a>.</p>
-  </div>
-</section>
-
 <section aria-labelledby="coverage">
-  <p class="no">§6</p>
+  <p class="no">§4</p>
   <div class="body">
-    <h2 id="coverage">What it watches</h2>
+    <h2 id="coverage">Supported ecosystems</h2>
     <div class="list">
       <div><h3>Packages and platforms</h3><p>npm · PyPI · Maven · Go · crates.io · RubyGems · Packagist · NuGet · Pub · Hex · Swift · Docker images · GitHub Actions · Debian · Ubuntu · Red Hat · SUSE · Alpine · Amazon Linux</p></div>
       <div><h3>Products, by name</h3><p>Microsoft · Apple · Google · Cisco · Fortinet · Palo Alto Networks · Ivanti · Citrix · VMware · Oracle · SAP · Atlassian · Siemens · Kubernetes · WordPress · OpenSSL · PHP · nginx · Jenkins · GitLab · and hundreds more</p></div>
@@ -301,22 +337,25 @@ Timeline:
 </section>
 
 <section aria-labelledby="badge">
-  <p class="no">§7</p>
+  <p class="no">§5</p>
   <div class="body">
-    <h2 id="badge">A badge for your README</h2>
-    <img class="badge-demo" src="badge-example.svg" alt="Meerkat badge showing 1,284 packages" height="28">
-    <p class="lead">The badge shows how many packages are watched, and links visitors to the same early warnings.</p>
+    <h2 id="badge">Badge</h2>
+    <a href="https://meerkatsec.win/r/github/bobby-ny/meerkat"><img class="own-badge" src="https://meerkatsec.win/badge/github/bobby-ny/meerkat.svg?size=large" alt="Meerkat badge for this repository" height="32"></a>
+    <p class="lead">Shows the number of packages watched in a public repo.</p>
     <pre class="code" tabindex="0" aria-label="Badge markdown">[![Meerkat](https://meerkatsec.win/badge/github/OWNER/REPO.svg)](https://meerkatsec.win/r/github/OWNER/REPO)</pre>
-    <p class="note-line">Only add the badge to repositories you maintain.</p>
+    <span class="lab" id="c-large">larger version, 32 px tall</span>
+    <pre class="code" tabindex="0" aria-labelledby="c-large">[![Meerkat](https://meerkatsec.win/badge/github/OWNER/REPO.svg?size=large)](https://meerkatsec.win/r/github/OWNER/REPO)</pre>
+    <p class="note-line">Replace <code>OWNER/REPO</code> with a public repository you maintain.</p>
   </div>
 </section>
 
 <section aria-labelledby="faq">
-  <p class="no">§8</p>
+  <p class="no">§6</p>
   <div class="body faq">
-    <h2 id="faq">Questions</h2>
+    <h2 id="faq">FAQ</h2>
     <details><summary>Can I sign up today?</summary><p>Yes. The first 1,000 sign-ups get in straight away. After that, Meerkat opens in weekly waves from a waitlist.</p></details>
     <details><summary>Can I invite someone?</summary><p>Yes. Every member can invite 3 friends, and an invite skips the waitlist.</p></details>
+    <details><summary>Where do alerts go?</summary><p>To the email you signed up with. You can add more addresses in Settings. Team and Business plans can also use Slack and webhooks.</p></details>
     <details><summary>Do you need access to my code?</summary><p>No. Public repositories are read through their dependency files. For private code, you send package names and versions.</p></details>
     <details><summary>How is this different from a vulnerability scanner?</summary><p>Scanners match your packages against published advisories. Meerkat starts earlier, with the first credible warning, and follows the issue through to the fix.</p></details>
     <details><summary>Will early reports be wrong sometimes?</summary><p>They can be, so every alert carries a level that says how sure we are. Critical early reports are checked by a person before they go out.</p></details>
@@ -324,10 +363,9 @@ Timeline:
 </section>
 
 <section aria-labelledby="plans">
-  <p class="no">§9</p>
+  <p class="no">§7</p>
   <div class="body">
-    <h2 id="plans">Plans</h2>
-    <p class="lead">Every alert level, on every plan.</p>
+    <h2 id="plans">Pricing</h2>
     <div class="scroll" tabindex="0" role="region" aria-label="Plans"><table class="plans">
       <thead><tr><td></td><th scope="col">Individual</th><th scope="col">Team</th><th scope="col">Business</th></tr></thead>
       <tbody>
@@ -349,7 +387,7 @@ Timeline:
 
 <footer>
   <span>© 2026 Meerkat</span>
-  <nav aria-label="Footer"><a href="https://meerkatsec.win/">meerkatsec.win</a><a href="https://meerkatsec.win/private-projects">private projects</a><a href="https://meerkatsec.win/badge">repo badge</a><a href="https://meerkatsec.win/security">security</a><a href="https://meerkatsec.win/legal/privacy">privacy</a><a href="https://meerkatsec.win/legal/terms">terms</a></nav>
+  <nav aria-label="Footer"><a href="https://meerkatsec.win/">meerkatsec.win</a><a href="https://github.com/bobby-ny/meerkat">github</a><a href="https://meerkatsec.win/private-projects">private projects</a><a href="https://meerkatsec.win/badge">repo badge</a><a href="https://meerkatsec.win/security">security</a><a href="https://meerkatsec.win/legal/privacy">privacy</a><a href="https://meerkatsec.win/legal/terms">terms</a></nav>
 </footer>
 </body>
 </html>

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Report a security problem
+    url: https://meerkatsec.win/security
+    about: Please report security problems privately.
+  - name: Help with your account
+    url: https://meerkatsec.win/security
+    about: Contact details for account and billing help.
